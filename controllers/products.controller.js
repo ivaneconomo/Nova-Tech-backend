@@ -1,4 +1,4 @@
-const { creProdServices, getAllProd, getProdById, editProd, deleteProd, getProd, getOffert, getProdCate } = require("../services/products.services");
+const { creProdServices, getAllProd, getProdById, editProd, getProdSearch, deleteProd, getProd, getOffert, getProdCate } = require("../services/products.services");
 
 const getAllProducts = async (req, res) => {
   try {
@@ -45,6 +45,17 @@ const getProductById = async (req, res) => {
     res.status(500).json(error.message);
   }
 };
+
+const getSearch = async(req,res)=>{
+  try {
+    const { title } = req.params;
+    const query = {title:{$regex: new RegExp(title, 'i')}};
+    const resp = await getProdSearch(query);
+    res.status(200).json(resp);
+  } catch (error) {
+    res.status(500).json(error.message);
+  }
+}
 
 const createProduct = async (req, res) => {
   try {
@@ -119,5 +130,6 @@ module.exports = {
   productOffert,
   restartOffert,
   getProducts,
-  getProdCategory
+  getProdCategory,
+  getSearch
 };

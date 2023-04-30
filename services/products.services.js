@@ -16,6 +16,10 @@ const getProdById = async (id) => {
   return await Products.findById(id);
 };
 
+const getProdSearch = async (query)=>{
+  return await Products.find(query, "-description -img -quantity");
+}
+
 const creProdServices = async (productData) => {
   const newProduct = new Products(productData);
   return await newProduct.save();
@@ -41,5 +45,6 @@ module.exports = {
   deleteProd,
   getProd,
   getOffert,
-  getProdCate
+  getProdCate,
+  getProdSearch
 };
