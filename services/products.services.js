@@ -6,6 +6,10 @@ const getAllProd = async () => {
 
 const getProd = async (index) =>{
   return await Products.find({}, "-description -img -quantity").skip(index).limit(12);
+};
+
+const getProdCate = async(category)=>{
+  return await Products.find({category: category}, "-description -img -quantity");
 }
 
 const getProdById = async (id) => {
@@ -36,5 +40,6 @@ module.exports = {
   editProd,
   deleteProd,
   getProd,
-  getOffert
+  getOffert,
+  getProdCate
 };

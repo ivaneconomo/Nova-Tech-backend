@@ -1,4 +1,4 @@
-const { creProdServices, getAllProd, getProdById, editProd, deleteProd, getProd, getOffert } = require("../services/products.services");
+const { creProdServices, getAllProd, getProdById, editProd, deleteProd, getProd, getOffert, getProdCate } = require("../services/products.services");
 
 const getAllProducts = async (req, res) => {
   try {
@@ -20,6 +20,16 @@ const getProducts = async(req,res) =>{
     }
     const resp = await getProd(index);
     res.status(200).json(resp);
+  } catch (error) {
+    res.status(500).json(error.message);
+  }
+}
+
+const getProdCategory = async(req,res) =>{
+  try {
+    const { category } = req.params;
+    const resp = await getProdCate(category);
+    res.status(200).json(resp)
   } catch (error) {
     res.status(500).json(error.message);
   }
@@ -108,5 +118,6 @@ module.exports = {
   deleteProduct,
   productOffert,
   restartOffert,
-  getProducts
+  getProducts,
+  getProdCategory
 };

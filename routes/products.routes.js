@@ -1,6 +1,6 @@
 const { Router } = require("express");
 const routeProduct = Router();
-const { createProduct, getAllProducts, getProductById, editProduct, deleteProduct, productOffert, restartOffert, getProducts} = require("../controllers/products.controller");
+const { createProduct, getAllProducts, getProductById, editProduct, deleteProduct, getProdCategory, productOffert, restartOffert, getProducts} = require("../controllers/products.controller");
 const { body } = require("express-validator");
 const { productValidation, offertProdValidate } = require("../middlewares/validation.productExist");
 const { jwtValidator, jwtValidatorAdmin} = require("../middlewares/jwtValidation");
@@ -8,6 +8,8 @@ const { jwtValidator, jwtValidatorAdmin} = require("../middlewares/jwtValidation
 routeProduct.get("/get-all-products", jwtValidatorAdmin, getAllProducts);
 
 routeProduct.get("/get-products/:pag", getProducts);
+
+routeProduct.get("/get-product-category/:category", getProdCategory)
 
 routeProduct.get("/get-product-by-id/:id",jwtValidator, getProductById);
 
