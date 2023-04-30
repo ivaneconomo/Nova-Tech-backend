@@ -20,6 +20,10 @@ const getProdSearch = async (query)=>{
   return await Products.find(query, "-description -img -quantity");
 }
 
+const getProdOffert = async ()=>{
+  return await Products.find({offert: true}, "-description -img -quantity");
+}
+
 const creProdServices = async (productData) => {
   const newProduct = new Products(productData);
   return await newProduct.save();
@@ -46,5 +50,6 @@ module.exports = {
   getProd,
   getOffert,
   getProdCate,
-  getProdSearch
+  getProdSearch,
+  getProdOffert
 };
