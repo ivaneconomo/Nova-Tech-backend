@@ -1,4 +1,4 @@
-const { creProdServices, getAllProd, getProdById, editProd, deleteProd, getProdInfo, getOffert } = require("../services/products.services");
+const { creProdServices, getAllProd, getProdById, editProd, deleteProd, getProd, getOffert } = require("../services/products.services");
 
 const getAllProducts = async (req, res) => {
   try {
@@ -8,6 +8,22 @@ const getAllProducts = async (req, res) => {
     res.status(500).json(error.message);
   }
 };
+
+const getProducts = async(req,res) =>{
+  try {
+    const { pag } = req.params;
+    let index = 0;
+    if(pag===1){
+      index = 0;
+    }else{
+      index = (pag-1)*12;
+    }
+    const resp = await getProd(index);
+    res.status(200).json(resp);
+  } catch (error) {
+    res.status(500).json(error.message);
+  }
+}
 
 const getProductById = async (req, res) => {
   try {
@@ -56,16 +72,6 @@ const deleteProduct = async (req, res) => {
   }
 };
 
-const getInfoProduct = async (req,res)=>{
-  try {
-    const { id } = req.params;
-    const resp = await getProdInfo(id);
-    if (!resp) return res.status(404).json("El producto no existe");
-    res.status(200).json(resp);
-  } catch (error) {
-    res.status(500).json(error.message);
-  }
-}
 
 const productOffert = async(req,res)=>{
   try {
@@ -100,7 +106,7 @@ module.exports = {
   getProductById,
   editProduct,
   deleteProduct,
-  getInfoProduct,
   productOffert,
-  restartOffert
+  restartOffert,
+  getProducts
 };

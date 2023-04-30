@@ -1,8 +1,12 @@
 const Products = require("../models/products.model");
 
 const getAllProd = async () => {
-  return await Products.find({}, "-description -img -quantity");
+  return await Products.find({});
 };
+
+const getProd = async (index) =>{
+  return await Products.find({}, "-description -img -quantity").skip(index).limit(12);
+}
 
 const getProdById = async (id) => {
   return await Products.findById(id);
@@ -21,10 +25,6 @@ const deleteProd = async (id) => {
   return await Products.findByIdAndDelete(id);
 };
 
-const getProdInfo = async(id)=>{
-  return await Products.findById(id);
-}
-
 const getOffert = async()=>{
   return await Products.find({offert: true});
 }
@@ -35,6 +35,6 @@ module.exports = {
   getProdById,
   editProd,
   deleteProd,
-  getProdInfo,
+  getProd,
   getOffert
 };
