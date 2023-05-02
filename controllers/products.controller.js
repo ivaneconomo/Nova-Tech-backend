@@ -49,7 +49,7 @@ const getProductById = async (req, res) => {
 const getSearch = async(req,res)=>{
   try {
     const { title } = req.params;
-    const query = {title:{$regex: new RegExp(title, 'i')}};
+    const query = {titleEs:{$regex: new RegExp(title, 'i')}};
     const resp = await getProdSearch(query);
     res.status(200).json(resp);
   } catch (error) {

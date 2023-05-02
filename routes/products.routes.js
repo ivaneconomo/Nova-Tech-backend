@@ -22,8 +22,10 @@ routeProduct.patch("/edit-product/:id", jwtValidatorAdmin, editProduct);
 routeProduct.delete("/delete-product/:id", jwtValidatorAdmin, deleteProduct);
 
 routeProduct.post("/create-product",
-  body("title").isString().withMessage("No es un titulo valido").not().isEmpty().withMessage("El campo está vacío").custom(productValidation),
-  body("description").isString().withMessage("No es una descripcion valida").not().isEmpty().withMessage("El campo está vacío"),
+  body("titleEs").isString().withMessage("No es un titulo valido").not().isEmpty().withMessage("El campo está vacío").custom(productValidation),
+  body("descriptionEs").isString().withMessage("No es una descripcion valida").not().isEmpty().withMessage("El campo está vacío"),
+  body("titleEn").isString().withMessage("No es un titulo valido").not().isEmpty().withMessage("El campo está vacío").custom(productValidation),
+  body("descriptionEn").isString().withMessage("No es una descripcion valida").not().isEmpty().withMessage("El campo está vacío"),
   body("img").isArray().withMessage("No es un array de imagenes").not().isEmpty().withMessage("El campo está vacío"),
   body("icon").isString().withMessage("No es valido").not().isEmpty().withMessage("El campo está vacío"),
   body("price").isNumeric().withMessage("No es Numerico").not().isEmpty().withMessage("El campo está vacío"),

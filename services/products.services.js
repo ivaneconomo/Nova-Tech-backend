@@ -5,11 +5,11 @@ const getAllProd = async () => {
 };
 
 const getProd = async (index) =>{
-  return await Products.find({}, "-description -img -quantity").skip(index).limit(12);
+  return await Products.find({}, "-descriptionEs -descriptionEn -img -quantity").skip(index).limit(12);
 };
 
 const getProdCate = async(category)=>{
-  return await Products.find({category: category}, "-description -img -quantity");
+  return await Products.find({category: category}, "-descriptionEs -descriptionEn -img -quantity");
 }
 
 const getProdById = async (id) => {
@@ -17,11 +17,11 @@ const getProdById = async (id) => {
 };
 
 const getProdSearch = async (query)=>{
-  return await Products.find(query, "-description -img -quantity");
+  return await Products.find(query, "-descriptionEs -descriptionEn -img -quantity");
 }
 
 const getProdOffert = async ()=>{
-  return await Products.find({offert: true}, "-description -img -quantity");
+  return await Products.find({offert: true}, "-descriptionEs -descriptionEn -img -quantity");
 }
 
 const creProdServices = async (productData) => {

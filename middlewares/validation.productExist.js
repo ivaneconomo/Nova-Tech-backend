@@ -1,8 +1,8 @@
 const Product = require('../models/products.model');
 
-const productValidation = async (title) =>{
-  const isExist = await Product.find({title});
-  if(isExist.length !== 0) throw new Error(`El producto ${title} ya se encuentra registrado`);
+const productValidation = async (titleEs) =>{
+  const isExist = await Product.find({titleEs});
+  if(isExist.length !== 0) throw new Error(`El producto ${titleEs} ya se encuentra registrado`);
   return false;
 };
 
