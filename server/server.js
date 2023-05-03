@@ -16,7 +16,7 @@ app.use(morgan("dev"));
 
 //app.use("/users", userRoutes);
 app.use("/products", productsRoutes);
-app.use("/login", loginRoute);
+//app.use("/login", loginRoute);
 
 app.listen(port, () => {
   console.log(`estamos escuchando el puerto ${port}`);
