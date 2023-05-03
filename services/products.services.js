@@ -1,12 +1,28 @@
 const Products = require("../models/products.model");
 
 const getAllProd = async () => {
-  return await Products.find({}, "-description -img -quantity");
+  return await Products.find({});
 };
+
+const getProd = async (index) =>{
+  return await Products.find({}, "-descriptionEs -descriptionEn -img -quantity").skip(index).limit(12);
+};
+
+const getProdCate = async(category)=>{
+  return await Products.find({category: category}, "-descriptionEs -descriptionEn -img -quantity");
+}
 
 const getProdById = async (id) => {
   return await Products.findById(id);
 };
+
+const getProdSearch = async (query)=>{
+  return await Products.find(query, "-descriptionEs -descriptionEn -img -quantity");
+}
+
+const getProdOffert = async ()=>{
+  return await Products.find({offert: true}, "-descriptionEs -descriptionEn -img -quantity");
+}
 
 const creProdServices = async (productData) => {
   const newProduct = new Products(productData);
@@ -21,10 +37,6 @@ const deleteProd = async (id) => {
   return await Products.findByIdAndDelete(id);
 };
 
-const getProdInfo = async(id)=>{
-  return await Products.findById(id);
-}
-
 const getOffert = async()=>{
   return await Products.find({offert: true});
 }
@@ -35,6 +47,9 @@ module.exports = {
   getProdById,
   editProd,
   deleteProd,
-  getProdInfo,
-  getOffert
+  getProd,
+  getOffert,
+  getProdCate,
+  getProdSearch,
+  getProdOffert
 };
