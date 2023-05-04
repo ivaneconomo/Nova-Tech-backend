@@ -137,7 +137,7 @@ const uploadImageOne = async(req,res)=>{
   try {
     const {image} = req.body;
     const result = await cloudinary.uploader.upload(image, {
-      folder: products
+      folder: "products"
     })
     return res.json(result);
   } catch (error) {
