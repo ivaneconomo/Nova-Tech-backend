@@ -146,6 +146,19 @@ const uploadImageOne = async(req,res)=>{
   }
 }
 
+const uploadImagess = async(req,res)=>{
+  try {
+    const promises = req.files.map((file) =>
+      cloudinary.uploader.upload(file.path, { folder: "products" })
+    );
+    const results = await Promise.all(promises);
+    return res.json(results);
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ error: "No se pudo subir la imagen" });
+  }
+}
+
 module.exports = {
   createProduct,
   getAllProducts,
@@ -158,5 +171,6 @@ module.exports = {
   getProdCategory,
   getSearch,
   getOfferts,
-  uploadImageOne
+  uploadImageOne,
+  uploadImagess
 };

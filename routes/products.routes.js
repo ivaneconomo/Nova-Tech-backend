@@ -1,6 +1,6 @@
 const { Router } = require("express");
 const routeProduct = Router();
-const { createProduct, getAllProducts, getProductById, editProduct, deleteProduct, getOfferts, getSearch, getProdCategory, productOffert, uploadImageOne, restartOffert, getProducts} = require("../controllers/products.controller");
+const { createProduct, getAllProducts, getProductById, editProduct, deleteProduct, getOfferts, getSearch, getProdCategory, productOffert, uploadImageOne, restartOffert, getProducts, uploadImagess} = require("../controllers/products.controller");
 const { body } = require("express-validator");
 const { productValidation, offertProdValidate } = require("../middlewares/validation.productExist");
 const { jwtValidator, jwtValidatorAdmin} = require("../middlewares/jwtValidation");
@@ -41,6 +41,8 @@ routeProduct.patch("/offert-product/:id", jwtValidatorAdmin, offertProdValidate,
 routeProduct.patch("/restart-offert",jwtValidatorAdmin, restartOffert);
 
 routeProduct.post("/imageone-upload", upload.single("image"), uploadImageOne);
+
+routeProduct.post("/images-upload", upload.array("imagess"), uploadImagess);
 
 
 module.exports = routeProduct;
