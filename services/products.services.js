@@ -1,4 +1,5 @@
 const Products = require("../models/products.model");
+const { Storage } = require('@google-cloud/storage');
 
 const getAllProd = async () => {
   return await Products.find({});
@@ -40,6 +41,7 @@ const deleteProd = async (id) => {
 const getOffert = async()=>{
   return await Products.find({offert: true});
 }
+
 
 module.exports = {
   creProdServices,

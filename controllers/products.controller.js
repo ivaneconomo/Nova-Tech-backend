@@ -1,4 +1,5 @@
 const { creProdServices, getAllProd, getProdById, editProd, getProdSearch, getProdOffert, deleteProd, getProd, getOffert, getProdCate } = require("../services/products.services");
+const cloudinary = require('../helpers/cloudinary')
 
 const getAllProducts = async (req, res) => {
   try {
@@ -132,6 +133,19 @@ const restartOffert = async(req,res)=>{
   }
 }
 
+const uploadImageOne = async(req,res)=>{
+  try {
+    const {image} = req.body;
+    const result = await cloudinary.uploader.upload(image, {
+      folder: products
+    })
+    return res.json(result);
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ error: 'No se pudo subir la imagen' });
+  }
+}
+
 module.exports = {
   createProduct,
   getAllProducts,
@@ -143,5 +157,6 @@ module.exports = {
   getProducts,
   getProdCategory,
   getSearch,
-  getOfferts
+  getOfferts,
+  uploadImageOne
 };
