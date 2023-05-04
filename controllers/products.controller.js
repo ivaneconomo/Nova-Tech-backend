@@ -1,5 +1,6 @@
 const { creProdServices, getAllProd, getProdById, editProd, getProdSearch, getProdOffert, deleteProd, getProd, getOffert, getProdCate } = require("../services/products.services");
-const cloudinary = require('../helpers/cloudinary')
+const cloudinary = require('../helpers/cloudinary');
+
 
 const getAllProducts = async (req, res) => {
   try {
@@ -135,8 +136,7 @@ const restartOffert = async(req,res)=>{
 
 const uploadImageOne = async(req,res)=>{
   try {
-    const {image} = req.body;
-    const result = await cloudinary.uploader.upload(image, {
+    const result = await cloudinary.uploader.upload(req.file.path, {
       folder: "products"
     })
     return res.json(result);

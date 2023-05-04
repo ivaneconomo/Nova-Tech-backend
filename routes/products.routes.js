@@ -4,6 +4,8 @@ const { createProduct, getAllProducts, getProductById, editProduct, deleteProduc
 const { body } = require("express-validator");
 const { productValidation, offertProdValidate } = require("../middlewares/validation.productExist");
 const { jwtValidator, jwtValidatorAdmin} = require("../middlewares/jwtValidation");
+const multer = require("multer");
+const upload = multer({ dest: "uploads/" })
 
 routeProduct.get("/get-all-products", jwtValidatorAdmin, getAllProducts);
 
@@ -38,8 +40,7 @@ routeProduct.patch("/offert-product/:id", jwtValidatorAdmin, offertProdValidate,
 
 routeProduct.patch("/restart-offert",jwtValidatorAdmin, restartOffert);
 
-routeProduct.post("/imageone-upload", uploadImageOne);
-
+routeProduct.post("/imageone-upload", upload.single("image"), uploadImageOne);
 
 
 module.exports = routeProduct;

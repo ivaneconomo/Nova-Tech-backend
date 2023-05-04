@@ -3,6 +3,7 @@ require("dotenv/config");
 const app = Express();
 const cors = require("cors");
 const morgan = require("morgan");
+const bodyParser = require("body-parser");
 //const loginRoute = require("../routes/login.route");
 const productsRoutes = require("../routes/products.routes");
 const usersRoutes = require("../routes/users.routes");
@@ -13,6 +14,8 @@ require("../database/dbConnection");
 app.use(Express.json());
 app.use(cors());
 app.use(morgan("dev"));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use("/users", usersRoutes);
 app.use("/products", productsRoutes);
