@@ -69,6 +69,8 @@ const getOfferts = async (req,res)=>{
 const createProduct = async (req, res) => {
   try {
     const productData = req.body;
+    productData.price = parseInt(productData.price);
+    productData.quantity = parseInt(productData.quantity);
     const resp = await creProdServices(productData);
     res.status(200).json(resp);
   } catch (error) {
