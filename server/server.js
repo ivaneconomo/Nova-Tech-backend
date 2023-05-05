@@ -4,9 +4,10 @@ const app = Express();
 const cors = require("cors");
 const morgan = require("morgan");
 const bodyParser = require("body-parser");
-//const loginRoute = require("../routes/login.route");
+const login = require("../routes/login.route");
 const productsRoutes = require("../routes/products.routes");
 const usersRoutes = require("../routes/users.routes");
+const login=require('../routes/login.route');
 const port = process.env.PORT;
 require("../database/dbConnection");
 
@@ -20,6 +21,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use("/users", usersRoutes);
 app.use("/products", productsRoutes);
 //app.use("/login", loginRoute);
+app.use('/login',login);
 
 app.listen(port, () => {
   console.log(`estamos escuchando el puerto ${port}`);
