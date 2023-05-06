@@ -35,7 +35,7 @@ const jwtValidatorAdmin = async (req, res, next) => {
     if (!token) return res.status(400).json("Token inexistente");
     jwt.verify(token, process.env.SECRET, (error, decodedToken) => {
       if (error) return res.status(401).json("Token invalido");
-      if (decodedToken.role !== "admin")
+      if (decodedToken.roleAdmin === false)
         return res.status(403).json("No tiene permisos de admnistrador");
       next();
     });

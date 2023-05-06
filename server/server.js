@@ -7,7 +7,6 @@ const bodyParser = require("body-parser");
 const login = require("../routes/login.route");
 const productsRoutes = require("../routes/products.routes");
 const usersRoutes = require("../routes/users.routes");
-const login=require('../routes/login.route');
 const port = process.env.PORT;
 require("../database/dbConnection");
 

@@ -1,8 +1,8 @@
 // // solo traigo el post 
 const {Router}=require('express');
-const route =Router();
+const routeLog =Router();
 const {login}= require('../controllers/login.controller')
 
-route.post('/',login);
+routeLog.post('/',login);
 
-module.exports = route;
+module.exports = routeLog;
