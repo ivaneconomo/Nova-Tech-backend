@@ -33,6 +33,7 @@ routeProduct.post("/create-product",
   body("price").isNumeric().withMessage("No es Numerico").not().isEmpty().withMessage("El campo está vacío"),
   body("quantity").isNumeric().withMessage("No es Numerico").not().isEmpty().withMessage("El campo está vacío"),
   body("category").isString().withMessage("No esta definida la categoria").not().isEmpty().withMessage("El campo está vacío"),
+  jwtValidatorAdmin,
   createProduct
 );
 

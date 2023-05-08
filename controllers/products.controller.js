@@ -111,7 +111,7 @@ const productOffert = async(req,res)=>{
   try {
     const { id } = req.params;
     const productData = await getProdById(id);
-    prod.offert = true;
+    productData.offert = true;
     const resp = await editProd(id, productData);
     if (!resp) return res.status(404).json("El producto no se ha encontrado");
     res.status(200).json({message: "El producto fue ofertado correctamente.", data: resp});
