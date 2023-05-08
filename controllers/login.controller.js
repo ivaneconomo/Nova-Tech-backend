@@ -22,9 +22,7 @@ const login= async (req,res)=>{
       roleAdmin: searchEmail.roleAdmin,
     }
 
-    const token= jwt.sign(payload,process.env.SECRET,{
-      expiresIn:1200,
-    });
+    const token= jwt.sign(payload, process.env.SECRET);
 
     res.status(200).json({msg:'Login exitoso',token});
   } catch (error) {
