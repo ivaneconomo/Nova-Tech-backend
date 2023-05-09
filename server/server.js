@@ -19,7 +19,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use("/users", usersRoutes);
 app.use("/products", productsRoutes);
-//app.use("/login", loginRoute);
 app.use('/login',login);
 
 app.listen(port, () => {
