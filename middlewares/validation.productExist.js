@@ -6,10 +6,10 @@ const productValidation = async (titleEs) =>{
   return false;
 };
 
-const offertProdValidate = async(req,res)=>{
+const offertProdValidate = async(req,res, next)=>{
   try {
     const cant = await Product.find({offert: true});
-    if(cant.length > 10) return res.status(404).json("ya se supero el limite de ofertas");
+    if(cant.length > 8) return res.status(404).json("ya se supero el limite de ofertas");
     next();
   } catch (error) {
     res.status(500).json(error.message);
