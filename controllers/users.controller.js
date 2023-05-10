@@ -121,20 +121,24 @@ const addtoCart = async(req, res) =>{
     const { id } = req.params;
     const { idProduct } = req.body;
     const user = await findUser(id);
-    
+    console.log(`ìd del usuario: ${id} . id del producto:${idProduct} . user: ${user}`)
     const index = user.cart.findIndex((item)=> item.id === idProduct)
-
+    console.log(`indice: ${index}`)
     if(index >= 0){
       user.cart[index].quantity++;
+      console.log('entro por true');
     }else{
       user.cart.push({id: idProduct, quantity: 1});
+      console.log('entro por else')
     }
 
-    const resp = await updateUser(id, user.cart);
+    const newCart = { cart: user.cart }
+
+    const resp = await updateUser(id, newCart);
     if(!resp) return res.status(404).json('no se pudo agregar producto');
     res.status(200).json(resp.cart)
   } catch (error) {
-    res.status(500).json(error.message);
+    res.status(500).json(error);
   }
 }
 
