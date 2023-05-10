@@ -121,10 +121,29 @@ const addtoCart = async(req, res) =>{
     const { id } = req.params;
     const { idProduct } = req.body;
     const user = await findUser(id);
-    user.cart.push(idProduct);
-    const resp = await updateUser(id, user);
-    if(!resp) return res.status(404).json('usuario no encontrado');
+    
+    const index = user.cart.findIndex((item)=> item.id === idProduct)
+
+    if(index >= 0){
+      user.cart[index].quantity++;
+    }else{
+      user.cart.push({id: idProduct, quantity: 1});
+    }
+
+    const resp = await updateUser(id, user.cart);
+    if(!resp) return res.status(404).json('no se pudo agregar producto');
     res.status(200).json(resp.cart)
+  } catch (error) {
+    res.status(500).json(error.message);
+  }
+}
+
+const getCart = async(res,res)=>{
+  try {
+    const { id } = req.params;
+    const user = await findUser(id);
+    if(!user) return res.status(404).json('usuario no encontrado');
+    res.status(200).json(user.cart)
   } catch (error) {
     res.status(500).json(error.message);
   }
@@ -137,5 +156,6 @@ module.exports = {
   editUser,
   deleteUser,
   disableUser,
-  addtoCart
+  addtoCart,
+  getCart
 };

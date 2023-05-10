@@ -7,7 +7,8 @@ const {
   editUser,
   disableUser,
   deleteUser,
-  addtoCart
+  addtoCart,
+  getCart
 } = require('../controllers/users.controller');
 const { emailValidation } = require('../middlewares/validation.userExist');
 const {
@@ -152,6 +153,8 @@ route.get('/disable-user/:id', jwtValidatorAdmin, disableUser);
 
 route.delete('/delete-user/:id', jwtValidatorAdmin, deleteUser);
 
-route.patch('/add-tocart/:id', jwtValidatorUser, addtoCart)
+route.patch('/add-tocart/:id', jwtValidatorUser, addtoCart);
+
+route.get('/get-cart/:id', jwtValidatorUser, getCart)
 
 module.exports = route;
