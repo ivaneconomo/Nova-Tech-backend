@@ -13,8 +13,12 @@ const findUser = async (id) => {
   return await User.findById(id).select('-password -__v');
 };
 
+const findUserData = async (id) => {
+  return await User.findById(id);
+};
+
 const updateUser = async (id, userData) => {
-  return await User.findByIdAndUpdate(id, userData).select('-password -__v');
+  return await User.findByIdAndUpdate(id, userData, { omitUndefined: true, new: true }).select('-password -__v');
 };
 
 const deleteUserById = async (id) => {
@@ -25,6 +29,7 @@ module.exports = {
   saveUser,
   findUsers,
   findUser,
+  findUserData,
   updateUser,
   deleteUserById,
 };
