@@ -138,7 +138,7 @@ const addtoCart = async(req, res) =>{
   }
 }
 
-const getCart = async(res,res)=>{
+const getCart = async(req,res)=>{
   try {
     const { id } = req.params;
     const user = await findUser(id);
