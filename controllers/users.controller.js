@@ -116,6 +116,20 @@ const disableUser = async (req, res) => {
   }
 };
 
+const addtoCart = async(req, res) =>{
+  try {
+    const { id } = req.params;
+    const { idProduct } = req.body;
+    const user = await findUser(id);
+    user.cart.push(idProduct);
+    const resp = await updateUser(id, user);
+    if(!resp) return res.status(404).json('usuario no encontrado');
+    res.status(200).json(resp.cart)
+  } catch (error) {
+    res.status(500).json(error.message);
+  }
+}
+
 module.exports = {
   getAllUsers,
   getUserById,
@@ -123,4 +137,5 @@ module.exports = {
   editUser,
   deleteUser,
   disableUser,
+  addtoCart
 };
