@@ -127,6 +127,39 @@ const disableUser = async (req, res) => {
   }
 };
 
+const addtoCart = async(req, res) =>{
+  try {
+    const { id } = req.params;
+    const { idProduct } = req.body;
+    const user = await findUser(id);
+    const index = user.cart.findIndex((item)=> item.id === idProduct);
+    if(index >= 0){
+      user.cart[index].quantity++;
+    }else{
+      user.cart.push({id: idProduct, quantity: 1});
+    }
+
+    const newCart = { cart: user.cart }
+
+    const resp = await updateUser(id, newCart);
+    if(!resp) return res.status(404).json('no se pudo agregar producto');
+    res.status(200).json(resp.cart)
+  } catch (error) {
+    res.status(500).json(error);
+  }
+}
+
+const getCart = async(req,res)=>{
+  try {
+    const { id } = req.params;
+    const user = await findUser(id);
+    if(!user) return res.status(404).json('usuario no encontrado');
+    res.status(200).json(user.cart)
+  } catch (error) {
+    res.status(500).json(error.message);
+  }
+}
+
 module.exports = {
   getAllUsers,
   getUserById,
@@ -135,4 +168,6 @@ module.exports = {
   deleteUser,
   disableUser,
   checkPassword,
+  addtoCart,
+  getCart
 };
