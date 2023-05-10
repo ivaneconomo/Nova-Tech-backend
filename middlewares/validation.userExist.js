@@ -8,13 +8,6 @@ const emailValidation = async (email) => {
   return false;
 };
 
-const verifyClient = async (role) =>{
-  if(role === undefined || role === null) return false;
-  if(role !== 'client') throw new Error('No puede ser un administrador');
-  return false;
-} // borrar ?
-
-module.exports={
+module.exports = {
   emailValidation,
-  verifyClient
-}
+};
