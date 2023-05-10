@@ -24,7 +24,7 @@ const login= async (req,res)=>{
       expiresIn:1200,
     });
 
-    res.status(200).json({message:'Login exitoso',token});
+    res.status(200).json({message:'Login exitoso',token, id: searchEmail._id});
   } catch (error) {
     res.status(500).json(error.message);
     console.log(error);
