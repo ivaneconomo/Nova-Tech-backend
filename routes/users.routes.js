@@ -147,7 +147,7 @@ route.patch(
   editUser
 );
 
-route.patch('/disable-user/:id', jwtValidatorAdmin, disableUser);
+route.get('/disable-user/:id', jwtValidatorAdmin, disableUser);
 
 route.delete('/delete-user/:id', jwtValidatorAdmin, deleteUser);
 
