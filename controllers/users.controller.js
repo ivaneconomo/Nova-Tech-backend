@@ -136,7 +136,7 @@ const abledUser = async (req, res) => {
       res.status(404).json('Usuario no encontrado.');
       return;
     }
-    res.status(200).json(`El usuario con el id: "${id}" ha sido deshabilitado`);
+    res.status(200).json(`El usuario con el id: "${id}" ha sido habilitado`);
   } catch (error) {
     res.status(500).json(error.message);
   }
