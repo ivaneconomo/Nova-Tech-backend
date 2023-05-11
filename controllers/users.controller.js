@@ -6,6 +6,7 @@ const {
   findUserData,
   updateUser,
   deleteUserById,
+  getemailUser
 } = require('../services/users.services');
 const { validationResult } = require('express-validator');
 const bcrypt = require('bcrypt');
@@ -126,6 +127,21 @@ const disableUser = async (req, res) => {
   }
 };
 
+const abledUser = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const disabled = { disabled: false };
+    const disabledUser = await updateUser(id, disabled);
+    if (!disabledUser) {
+      res.status(404).json('Usuario no encontrado.');
+      return;
+    }
+    res.status(200).json(`El usuario con el id: "${id}" ha sido habilitado`);
+  } catch (error) {
+    res.status(500).json(error.message);
+  }
+};
+
 const addtoCart = async(req, res) =>{
   try {
     const { id } = req.params;
@@ -159,6 +175,17 @@ const getCart = async(req,res)=>{
   }
 }
 
+const getUserEmail = async(req,res)=>{
+  try {
+    const { email } = req.params;
+    const query = {email:{$regex: new RegExp(email, 'i')}};
+    const resp = await getemailUser(query);
+    res.status(200).json(resp);
+  } catch (error) {
+    res.status(500).json(error.message);
+  }
+}
+
 module.exports = {
   getAllUsers,
   getUserById,
@@ -168,5 +195,7 @@ module.exports = {
   disableUser,
   checkPassword,
   addtoCart,
-  getCart
+  getCart,
+  getUserEmail,
+  abledUser
 };
