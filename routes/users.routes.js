@@ -9,7 +9,9 @@ const {
   deleteUser,
   checkPassword,
   addtoCart,
-  getCart
+  getCart,
+  getUserEmail,
+  abledUser
 } = require('../controllers/users.controller');
 const {
   emailValidation,
@@ -333,9 +335,11 @@ route.get('/get-users', jwtValidatorAdmin, getAllUsers);
 
 route.get('/get-user-by-id/:id', jwtValidatorUser, getUserById);
 
-route.get('/get-user-by-id/:id', jwtValidatorUser, getUserById);
-
 route.get('/disable-user/:id', jwtValidatorAdmin, disableUser);
+
+route.get('/abled-user/:id', jwtValidatorAdmin, abledUser);
+
+route.get('/get-user-email/:email', jwtValidatorAdmin, getUserEmail)
 
 route.delete('/delete-user/:id', jwtValidatorAdmin, deleteUser);
 

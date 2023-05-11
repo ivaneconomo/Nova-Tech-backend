@@ -25,6 +25,10 @@ const deleteUserById = async (id) => {
   return await User.findByIdAndDelete(id);
 };
 
+const getemailUser = async (query)=>{
+  return await User.find(query, "-password -__v");
+}
+
 module.exports = {
   saveUser,
   findUsers,
@@ -32,4 +36,5 @@ module.exports = {
   findUserData,
   updateUser,
   deleteUserById,
+  getemailUser
 };
