@@ -3,8 +3,10 @@ const {
   saveUser,
   findUsers,
   findUser,
+  findUserData,
   updateUser,
   deleteUserById,
+  findUserByUser,
 } = require('../services/users.services');
 const { validationResult } = require('express-validator');
 const bcrypt = require('bcrypt');
@@ -27,34 +29,43 @@ const createUser = async (req, res) => {
   }
 };
 
+const checkPassword = async (req, res) => {
+  const { id } = req.params;
+  const { password } = req.body;
+  try {
+    const user = await findUserData(id);
+
+    if (!user) {
+      return res.status(404).json('Usuario inexistente.');
+    }
+    const passwordMatch = bcrypt.compareSync(password, user.password);
+
+    if (!passwordMatch) {
+      return res.status(404).json('Contraseña incorrecta.');
+    }
+
+    res.status(200).json({ message: 'Contraseña validada con éxito.' });
+  } catch (error) {
+    res.status(500).json(error.message);
+  }
+};
+
 const editUser = async (req, res) => {
   try {
+    const { id } = req.params;
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
     }
-    const { id } = req.params;
-    const userNewData = req.body;
-    const userData = await User.findById(id);
-    const passwordIsValid = await bcrypt.compare(
-      userNewData.password,
-      userData.password
-    );
-    if (!passwordIsValid) {
-      return res.status(401).json({ message: 'Contraseña incorrecta' });
-    }
-    if (userNewData.newPassword) {
-      const salt = await bcrypt.genSalt(10);
-      const hashedPassword = await bcrypt.hash(userNewData.newPassword, salt);
-      userData.password = hashedPassword;
+    const userData = req.body;
+
+    if (userData.password) {
+      const salt = bcrypt.genSaltSync(10);
+      userData.password = bcrypt.hashSync(userData.password, salt);
     }
 
-    const editedUser = await updateUser(id, userData);
-    if (!editedUser) {
-      res.status(404).json('Usuario no encontrado.');
-      return;
-    }
-    res.status(200).json(editedUser);
+    await updateUser(id, userData);
+    res.status(200).json('Usuario modificado con éxito.');
   } catch (error) {
     res.status(500).json(error.message);
   }
@@ -156,6 +167,7 @@ module.exports = {
   editUser,
   deleteUser,
   disableUser,
+  checkPassword,
   addtoCart,
   getCart
 };
