@@ -178,7 +178,7 @@ const getCart = async(req,res)=>{
 const getUserEmail = async(req,res)=>{
   try {
     const { email } = req.params;
-    const query = {email:{$regex: new RegExp(title, 'i')}};
+    const query = {email:{$regex: new RegExp(email, 'i')}};
     const resp = await getemailUser(query);
     res.status(200).json(resp);
   } catch (error) {
