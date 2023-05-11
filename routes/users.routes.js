@@ -333,8 +333,6 @@ route.get('/get-users', jwtValidatorAdmin, getAllUsers);
 
 route.get('/get-user-by-id/:id', jwtValidatorUser, getUserById);
 
-route.get('/get-user-by-id/:id', jwtValidatorUser, getUserById);
-
 route.get('/disable-user/:id', jwtValidatorAdmin, disableUser);
 
 route.delete('/delete-user/:id', jwtValidatorAdmin, deleteUser);

@@ -6,7 +6,6 @@ const {
   findUserData,
   updateUser,
   deleteUserById,
-  findUserByUser,
 } = require('../services/users.services');
 const { validationResult } = require('express-validator');
 const bcrypt = require('bcrypt');
